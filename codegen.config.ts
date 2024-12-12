@@ -23,9 +23,9 @@ const config: CodegenConfig = {
         "src/api/graphql/resolvers.ts": {
             config: {
                 makeResolverTypeCallable: true,
-                customResolverFn: "TResult",
+                customResolverFn: "TResult | (() => TResult)",
                 contextType: "Record<string, never>",
-                resolverTypeWrapperSignature: "Callable<RecursivePartial<T>>",
+                resolverTypeWrapperSignature: "RecursivePartial<T>",
                 wrapFieldDefinitions: true,
                 fieldWrapperValue: 'T | (() => T)',
             },
@@ -34,7 +34,6 @@ const config: CodegenConfig = {
                 "typescript-resolvers",
                 { add: { content: "/* eslint-disable */" } },
                 { add: { content: "type RecursivePartial<T> = T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T" } },
-                { add: { content: "type Callable<T> = () => T" } },
             ],
         },
         "src/api/graphql/": {

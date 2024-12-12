@@ -8,9 +8,8 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Mayb
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type FieldWrapper<T> = T | (() => T);
-export type ResolverFn<TResult, TParent, TContext, TArgs> = TResult
+export type ResolverFn<TResult, TParent, TContext, TArgs> = TResult | (() => TResult)
 type RecursivePartial<T> = T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T
-type Callable<T> = () => T
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -404,7 +403,7 @@ export type WeakResListItem = {
 
 
 
-export type ResolverTypeWrapper<T> = Callable<RecursivePartial<T>>;
+export type ResolverTypeWrapper<T> = RecursivePartial<T>;
 
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs>;
 
