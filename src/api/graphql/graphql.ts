@@ -18,7 +18,7 @@ export type Scalars = {
 
 /** define a single ability */
 export type AbilitiesListItem = {
-  __typename: 'AbilitiesListItem';
+  __typename?: 'AbilitiesListItem';
   /** The ability effect */
   effect?: Maybe<Scalars['String']['output']>;
   /** The ability name */
@@ -29,7 +29,7 @@ export type AbilitiesListItem = {
 
 /** define a single attack */
 export type AttacksListItem = {
-  __typename: 'AttacksListItem';
+  __typename?: 'AttacksListItem';
   /** The attack cost in energies (can be affected by the effect) */
   cost?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** The attack damage (can be affected by the effect) */
@@ -42,7 +42,7 @@ export type AttacksListItem = {
 
 /** Define what is a card for GraphQL */
 export type Card = {
-  __typename: 'Card';
+  __typename?: 'Card';
   /** The pokémon abilities */
   abilities?: Maybe<Array<Maybe<AbilitiesListItem>>>;
   /** The pokémon attacks */
@@ -111,7 +111,7 @@ export type Card = {
  * It also indicate how much card for a specific variant
  */
 export type CardCount = {
-  __typename: 'CardCount';
+  __typename?: 'CardCount';
   /** The number of first edition cards in the set */
   firstEd?: Maybe<Scalars['Int']['output']>;
   /** The number of holo cards in the set */
@@ -170,7 +170,7 @@ export type CardsFilters = {
 
 /** Indicate the item a pokémon has on him */
 export type Item = {
-  __typename: 'Item';
+  __typename?: 'Item';
   /** the item effect */
   effect: Scalars['String']['output'];
   /** the item name */
@@ -179,7 +179,7 @@ export type Item = {
 
 /** Indicate the legality of a card for official tournaments */
 export type Legal = {
-  __typename: 'Legal';
+  __typename?: 'Legal';
   /** Is the card playable in expanded tournaments? */
   expanded?: Maybe<Scalars['Boolean']['output']>;
   /** Is the card playable in standard tournaments? */
@@ -202,7 +202,7 @@ export type Pagination = {
  * https://github.com/tcgdex/cards-database/issues/new/choose
  */
 export type Query = {
-  __typename: 'Query';
+  __typename?: 'Query';
   /** Find one card (using the id and set is deprecated) */
   card?: Maybe<Card>;
   /** Find the cards */
@@ -301,7 +301,7 @@ export type QuerySetsArgs = {
 
 /** A Pokémon TCG serie */
 export type Serie = {
-  __typename: 'Serie';
+  __typename?: 'Serie';
   /** The Serie ID */
   id: Scalars['String']['output'];
   /** The serie's logo if available */
@@ -322,7 +322,7 @@ export type SerieFilters = {
 
 /** Describe a single set */
 export type Set = {
-  __typename: 'Set';
+  __typename?: 'Set';
   /** Indicate how much cards is in the set */
   cardCount: CardCount;
   /** list the cards in the set */
@@ -367,7 +367,7 @@ export type Sort = {
 
 /** currently unused but is the general endpoint for every other elements */
 export type StringEndpoint = {
-  __typename: 'StringEndpoint';
+  __typename?: 'StringEndpoint';
   /** The list of cards that are available in the endpoint */
   cards: Array<Maybe<Card>>;
   /** The endpoint element name */
@@ -376,7 +376,7 @@ export type StringEndpoint = {
 
 /** All the card variants */
 export type Variants = {
-  __typename: 'Variants';
+  __typename?: 'Variants';
   /** is the card available in a first edition version? */
   firstEdition: Scalars['Boolean']['output'];
   /** can the card be found has an holo? */
@@ -391,7 +391,7 @@ export type Variants = {
 
 /** Definition for the Weakness and REsistance elements */
 export type WeakResListItem = {
-  __typename: 'WeakResListItem';
+  __typename?: 'WeakResListItem';
   /** the Weakness/resistance type */
   type: Scalars['String']['output'];
   /** the Weakness/resistance modifier (can be 2x or 30+ or nothing) */
@@ -401,7 +401,7 @@ export type WeakResListItem = {
 export type GetCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCardsQuery = { __typename: 'Query', cards?: Array<{ __typename: 'Card', id: string, abilities?: Array<{ __typename: 'AbilitiesListItem', effect?: string | null, name?: string | null } | null> | null, item?: { __typename: 'Item', effect: string, name: string } | null } | null> | null };
+export type GetCardsQuery = { __typename?: 'Query', cards?: Array<{ __typename?: 'Card', id: string, abilities?: Array<{ __typename?: 'AbilitiesListItem', effect?: string | null, name?: string | null } | null> | null, item?: { __typename?: 'Item', effect: string, name: string } | null } | null> | null };
 
 
 export const GetCardsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCards"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cards"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"abilities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"effect"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"item"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"effect"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetCardsQuery, GetCardsQueryVariables>;

@@ -1,9 +1,8 @@
-import { ExecutionResult, GraphQLSchema, executeSync } from "graphql"
+import { ExecutionResult, GraphQLSchema, executeSync, buildASTSchema  } from "graphql"
 import { addMocksToSchema } from "@graphql-tools/mock"
 import { TypedDocumentNode, VariablesOf } from "@graphql-typed-document-node/core"
 import { addTypenameToDocument, getOperationName } from "apollo-utilities"
-import { MockResolvers } from "src/api/graphql/mock-resolvers"
-import { buildASTSchema } from "graphql"
+import { MockResolvers } from "src/api/mock-data-utils/mock-resolvers"
 import SDL from "src/api/graphql/schema.graphql"
 
 const schema = buildASTSchema(SDL)

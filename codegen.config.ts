@@ -1,51 +1,30 @@
 import { CodegenConfig } from "@graphql-codegen/cli"
 
-const config: CodegenConfig = {
+export default {
     overwrite: true,
     schema: [
-        // "https://api.tcgdex.net/v2/graphql",
+        // "https://api.tcgdex.net/v2/graphql", // use this instead of the static schema below if you want to get fresh types
         "src/api/graphql/schema.graphql"
     ],
     documents: ["src/**/*.graphql", "!src/api/*", "src/**/*.tsx", "src/**/*.ts"],
-    config: {
-        namingConvention: {
-            enumValues: "keep",
-            namingConvention: "keep",
-        },
-        enumsAsTypes: true,
-        nonOptionalTypename: true,
-        strictScalars: true,
-    },
     generates: {
-        "src/api/graphql/schema.graphql": {
-            plugins: ["schema-ast"],
-        },
+        "src/api/graphql/schema.graphql": { plugins: ["schema-ast"] },
         "src/api/graphql/resolvers.ts": {
             config: {
                 makeResolverTypeCallable: true,
                 customResolverFn: "TResult | (() => TResult)",
-                contextType: "Record<string, never>",
                 resolverTypeWrapperSignature: "RecursivePartial<T>",
-                wrapFieldDefinitions: true,
-                fieldWrapperValue: 'T | (() => T)',
+                namespacedImportName: "Types",
             },
             plugins: [
-                "typescript",
                 "typescript-resolvers",
-                { add: { content: "/* eslint-disable */" } },
                 { add: { content: "type RecursivePartial<T> = T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T" } },
+                { add: { content: "import * as Types from 'src/api/graphql/graphql';" } },
             ],
         },
         "src/api/graphql/": {
             preset: "client",
-            config: {
-                enumsAsTypes: true,
-            },
-            presetConfig: {
-                fragmentMasking: { unmaskFunctionName: "unmaskFragment" },
-            },
+            presetConfig: { fragmentMasking: false },
         },
     },
-}
-
-export default config
+} satisfies CodegenConfig
