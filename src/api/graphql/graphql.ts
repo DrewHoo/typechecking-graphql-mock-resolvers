@@ -14,6 +14,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  DateTime: { input: string; output: string; }
 };
 
 /** define a single ability */
@@ -49,6 +50,7 @@ export type Card = {
   attacks?: Maybe<Array<Maybe<AttacksListItem>>>;
   /** The card category ('Pokemon' | 'Trainer' | 'Energy') */
   category: Scalars['String']['output'];
+  datePublished?: Maybe<Scalars['DateTime']['output']>;
   /** The card description (mostly the Poédex description) */
   description?: Maybe<Scalars['String']['output']>;
   /** The pokémon(s) Pokédex IDs (Pokémons appearing on the card image & name) */

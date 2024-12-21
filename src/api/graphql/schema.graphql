@@ -42,6 +42,7 @@ type Card {
 
   """The card category ('Pokemon' | 'Trainer' | 'Energy')"""
   category: String!
+  datePublished: DateTime # this is not part of the real API! I just added it to demonstrate how to deal with custom scalars
 
   """The card description (mostly the Poédex description)"""
   description: String
@@ -211,6 +212,8 @@ input CardsFilters {
   """Filter on the trainer type"""
   trainerType: String
 }
+
+scalar DateTime
 
 """Indicate the item a pokémon has on him"""
 type Item {

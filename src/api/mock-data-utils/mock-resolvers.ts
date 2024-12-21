@@ -1,4 +1,5 @@
 import { Resolvers } from "src/api/graphql/resolvers"
+import { Scalars } from "src/api/graphql/graphql"
 
 export type MockResolvers = IMocks<Required<Resolvers>>
 type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : never;
@@ -21,11 +22,13 @@ type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => i
  * THEREFORE: restricting the type interface to the first two options above is the most straightforward way to a user-friendly type.
  *  */
 type IMocks<TResolvers> = {
-  [TTypeName in keyof TResolvers]?: (() => {
+  [TTypeName in keyof TResolvers]?: TTypeName extends keyof Scalars
+  ? () => Scalars[TTypeName]["output"]
+  : () => {
     [TFieldName in keyof TResolvers[TTypeName]]: TResolvers[TTypeName][TFieldName] extends (...args: any) => any
     ? (() => ReturnType<TResolvers[TTypeName][TFieldName]>) | ReturnType<TResolvers[TTypeName][TFieldName]>
     : TResolvers[TTypeName][TFieldName];
-  })
+  }
 }
 
 
@@ -41,3 +44,5 @@ const d: MockResolvers = { Card: { item: { effect: "paralyzed" } } }
 
 // @ts-expect-error this property is not actually part of our schema!
 const e: MockResolvers = { A: { b: () => "asdfg" } }
+
+const g: MockResolvers = { DateTime: () => new Date().toISOString() }

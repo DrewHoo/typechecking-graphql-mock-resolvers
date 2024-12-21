@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import * as Types from 'src/api/graphql/graphql';
 export type ResolverFn<TResult, TParent, TContext, TArgs> = TResult | (() => TResult)
 type RecursivePartial<T> = T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T
@@ -68,6 +68,7 @@ export type ResolversTypes = {
   Card: ResolverTypeWrapper<Types.Card>;
   CardCount: ResolverTypeWrapper<Types.CardCount>;
   CardsFilters: Types.CardsFilters;
+  DateTime: ResolverTypeWrapper<Types.Scalars['DateTime']['output']>;
   ID: ResolverTypeWrapper<Types.Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Types.Scalars['Int']['output']>;
   Item: ResolverTypeWrapper<Types.Item>;
@@ -93,6 +94,7 @@ export type ResolversParentTypes = {
   Card: Types.Card;
   CardCount: Types.CardCount;
   CardsFilters: Types.CardsFilters;
+  DateTime: Types.Scalars['DateTime']['output'];
   ID: Types.Scalars['ID']['output'];
   Int: Types.Scalars['Int']['output'];
   Item: Types.Item;
@@ -135,6 +137,7 @@ export type CardResolvers<ContextType = any, ParentType extends ResolversParentT
   abilities?: Resolver<Types.Maybe<Array<Types.Maybe<ResolversTypes['AbilitiesListItem']>>>, ParentType, ContextType>;
   attacks?: Resolver<Types.Maybe<Array<Types.Maybe<ResolversTypes['AttacksListItem']>>>, ParentType, ContextType>;
   category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  datePublished?: Resolver<Types.Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   description?: Resolver<Types.Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dexId?: Resolver<Types.Maybe<Array<Types.Maybe<ResolversTypes['Int']>>>, ParentType, ContextType>;
   effect?: Resolver<Types.Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -172,6 +175,10 @@ export type CardCountResolvers<ContextType = any, ParentType extends ResolversPa
   total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
 
 export type ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = {
   effect?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -241,6 +248,7 @@ export type Resolvers<ContextType = any> = {
   AttacksListItem?: AttacksListItemResolvers<ContextType>;
   Card?: CardResolvers<ContextType>;
   CardCount?: CardCountResolvers<ContextType>;
+  DateTime?: GraphQLScalarType;
   Item?: ItemResolvers<ContextType>;
   Legal?: LegalResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

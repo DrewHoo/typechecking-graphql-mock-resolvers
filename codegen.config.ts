@@ -24,6 +24,11 @@ export default {
         },
         "src/api/graphql/": {
             preset: "client",
+            config: {
+                scalars: {
+                    DateTime: "string"
+                },
+            },
             presetConfig: { fragmentMasking: false },
         },
     },
