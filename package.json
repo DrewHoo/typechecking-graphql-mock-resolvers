@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest run",
+    "test:dev": "vitest --watch",
     "codegen": "VERBOSE=1 graphql-codegen --config codegen.config.ts"
   },
   "keywords": [],
